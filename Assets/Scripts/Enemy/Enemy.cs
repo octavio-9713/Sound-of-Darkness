@@ -2,57 +2,76 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(LineOfSight))]
 public class Enemy : MonoBehaviour
 {
     public List<Transform> waypoints;
     public List<Transform> waypointsGone = new List<Transform>();
     public Transform currentWaypoint;
-    public float distance;
-    public float speed;
-    NavMeshAgent agent;
+    public float waypointDistance;
+    public float killDistance;
+    public float waypointSpeed;
+    public float chaseSpeed;
+    NavMeshAgent _agent;
+    LineOfSight _ofSight;
 
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        _agent = GetComponent<NavMeshAgent>();
+        _ofSight = GetComponent<LineOfSight>();
 
     }
     void Update()
     {
-        Waypoint();
+        if (_ofSight._targetInSight)
+        {
+            Chase();
+            _agent.speed = chaseSpeed;
+        }
+        else
+        {
+            Waypoint();
+            _agent.speed = waypointSpeed;
+        }
     }
 
     public void Waypoint()
     {
-        //this if return true when is imposible to go to the waypoint
-        if (!agent.hasPath)
+        //Check if this if is necessary
+        if(_agent.isStopped)
         {
-            print("no path");
-            return;
+            _agent.isStopped = false;
         }
         if (waypoints.Count <= 0)
         {
-            foreach (var item in waypointsGone)
+            for (int i = waypointsGone.Count - 1; i >= 0; i--)
             {
-                waypoints.Add(item);
+                waypoints.Add(waypointsGone[i]);
             }
+           
             waypointsGone.Clear();
         }
-        if (Vector3.Distance(transform.position, waypoints[0].position) < distance)
+        if (Vector3.Distance(transform.position, waypoints[0].position) < waypointDistance)
         {
-            agent.destination = waypoints[0].position;
+            _agent.destination = waypoints[0].position;
             Vector3 dir = waypoints[0].position - transform.position;
             waypointsGone.Add(waypoints[0]);
             waypoints.Remove(waypoints[0]);
         }
         else
         {
-            agent.destination = waypoints[0].position;
+            _agent.destination = waypoints[0].position;
         }
     }
     public void Chase()
     {
-        //TODO Make the chase logic
-        //idea if no path to the player or lost vision of this, just call "Waypoint()" and should return to make the patrol
+        //TODO Make the chase logic 
+        if (Vector3.Distance(transform.position, _ofSight.target.transform.position) < killDistance)
+        {
+            _agent.isStopped = true;
+        }
+        else _agent.isStopped = false;
+        _agent.destination = _ofSight.target.transform.position;
     }
 }
