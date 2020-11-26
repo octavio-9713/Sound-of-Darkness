@@ -73,14 +73,14 @@ Material:
     - _Parallax: 0.02
     - _RingColorIntensity: 15
     - _RingIntensityScale: 3
-    - _RingSpeed: 1
-    - _RingWidth: 0.3
+    - _RingSpeed: 0.9
+    - _RingWidth: 0.09
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.3301887, g: 0.2846904, b: 0.24141155, a: 1}
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RingColor: {r: 0.25485048, g: 0.6509434, b: 0.46989173, a: 1}
+    - _RingColor: {r: 0.371262, g: 0.9716981, b: 0.7743874, a: 1}
