@@ -11,16 +11,23 @@ public class S_playerMovement : MonoBehaviour
     private float _speed = 5f;
 
     [Header("Walking")]
-    public float walkingSpeed = 5f;
+    public float walkingSpeed = 2f;
+
+    [Header("Walking Sonar Options")]
     public float walkingRingsize = 10f;
     public float walkingRingOffset = 3f;
-    
+    public float delayWalkingSonarTime = 1f;
+
     [Header("Crouching")]
+    public float crouchSpeed = 2f;
+
     [Tooltip("Used to determine how low the player would go.")]
     public float crouchMultiplier = 0.3f;
-    public float crouchSpeed = 3f;
+
+    [Header("Crouching Sonar Options")]
     public float crouchingRingSize = 5f;
     public float crouchRingOffset = 2f;
+    public float delayCrouchSonarTime = 1f;
 
     private float _gravity = -9.8f;
 
@@ -29,9 +36,8 @@ public class S_playerMovement : MonoBehaviour
     public Transform bottomEmitter;
     private float _ringOffset;
     private float _sonarImpulse = 0f;
-
-    [Header("Sonar Time")]
-    public float delayTimer = 0.5f;
+    
+    private float _delayTimer = 0.5f;
     private float _elapseTime = 0;
 
     Vector3 _velocity;
@@ -44,6 +50,7 @@ public class S_playerMovement : MonoBehaviour
         _initialHeight = controller.height;
         _sonarImpulse = walkingRingsize;
         _ringOffset = walkingRingOffset;
+        _speed = walkingSpeed;
 
         StartCoroutine("EmitPulseRutine");
     }
@@ -62,9 +69,10 @@ public class S_playerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftControl))
         {
             newHeight = newHeight * crouchMultiplier;
-            _speed = this.crouchSpeed;
-            _sonarImpulse = this.crouchingRingSize;
+            _speed = crouchSpeed;
+            _sonarImpulse = crouchingRingSize;
             _ringOffset = crouchRingOffset;
+            _delayTimer = delayCrouchSonarTime;
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
@@ -72,6 +80,7 @@ public class S_playerMovement : MonoBehaviour
             _speed = walkingSpeed;
             _sonarImpulse = walkingRingsize;
             _ringOffset = walkingRingOffset;
+            _delayTimer = delayWalkingSonarTime;
         }
 
         float lastHeight = controller.height;
@@ -104,22 +113,12 @@ public class S_playerMovement : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(delayTimer);
+            yield return new WaitForSeconds(_delayTimer);
             if (moving)
             {
                 Vector3 diference = _moveDir * _ringOffset;
                 sonar.StartSonarRing(bottomEmitter.position + diference, _sonarImpulse / 10.0f);
             }
-        }
-    }
-
-    void EmitPulse()
-    {
-        _elapseTime += Time.deltaTime;
-        if (_elapseTime >= delayTimer)
-        {
-            _elapseTime = _elapseTime % 1f;
-            sonar.StartSonarRing(bottomEmitter.position, _sonarImpulse / 10.0f);
         }
     }
 }

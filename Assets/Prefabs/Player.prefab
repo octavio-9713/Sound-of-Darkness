@@ -66,16 +66,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 6366773573556196788}
-  walkingSpeed: 3
-  walkingImpulse: 10
-  walkingRingOffset: 3
+  walkingSpeed: 1.5
+  walkingRingsize: 8
+  walkingRingOffset: 1.5
+  delayWalkingSonarTime: 0.75
+  crouchSpeed: 0.5
   crouchMultiplier: 0.3
-  crouchSpeed: 1
-  crouchImpulse: 6
-  crouchRingOffset: 2
+  crouchingRingSize: 5
+  crouchRingOffset: 0.75
+  delayCrouchSonarTime: 2
   sonar: {fileID: 6366773573556196794}
   bottomEmitter: {fileID: 6366773573664699071}
-  delayTimer: 0.25
 --- !u!114 &6366773573556196794
 MonoBehaviour:
   m_ObjectHideFlags: 0
