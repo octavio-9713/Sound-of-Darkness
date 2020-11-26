@@ -40,6 +40,8 @@ public class S_playerMovement : MonoBehaviour
     private float _delayTimer = 0.5f;
     private float _elapseTime = 0;
 
+    private bool _movementDisable = false;
+
     Vector3 _velocity;
     Vector3 _moveDir;
 
@@ -58,8 +60,11 @@ public class S_playerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckForCrouch();
-        MoveCharacter();
+        if (!_movementDisable)
+        {
+            CheckForCrouch();
+            MoveCharacter();
+        }
     }
 
     void CheckForCrouch()
@@ -68,25 +73,37 @@ public class S_playerMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftControl))
         {
-            newHeight = newHeight * crouchMultiplier;
-            _speed = crouchSpeed;
-            _sonarImpulse = crouchingRingSize;
-            _ringOffset = crouchRingOffset;
-            _delayTimer = delayCrouchSonarTime;
+            changeToCrouching(newHeight);
         }
-        else if (Input.GetKeyUp(KeyCode.LeftControl))
+
+        // TODO: uncomment if after tweaking the player, to avoid asigning the speed everytime  
+        else //if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            newHeight = _initialHeight;
-            _speed = walkingSpeed;
-            _sonarImpulse = walkingRingsize;
-            _ringOffset = walkingRingOffset;
-            _delayTimer = delayWalkingSonarTime;
+            changeToWalking(newHeight);
         }
 
         float lastHeight = controller.height;
         controller.height = Mathf.Lerp(controller.height, newHeight, 5.0f * Time.deltaTime);
 
         transform.position = new Vector3(transform.position.x, transform.position.y * (controller.height - lastHeight) * 0.5f, transform.position.z);
+    }
+
+    void changeToCrouching(float newHeight)
+    {
+        newHeight = newHeight * crouchMultiplier;
+        _speed = crouchSpeed;
+        _sonarImpulse = crouchingRingSize;
+        _ringOffset = crouchRingOffset;
+        _delayTimer = delayCrouchSonarTime;
+    }
+
+    void changeToWalking(float newHeight)
+    {
+        newHeight = _initialHeight;
+        _speed = walkingSpeed;
+        _sonarImpulse = walkingRingsize;
+        _ringOffset = walkingRingOffset;
+        _delayTimer = delayWalkingSonarTime;
     }
 
     void MoveCharacter()
@@ -120,5 +137,16 @@ public class S_playerMovement : MonoBehaviour
                 sonar.StartSonarRing(bottomEmitter.position + diference, _sonarImpulse / 10.0f);
             }
         }
+    }
+
+    public void DisableMovement()
+    {
+        _movementDisable = true;
+        _sonarImpulse = crouchingRingSize;
+    }
+
+    public void EnableMovement()
+    {
+        _movementDisable = false;
     }
 }
