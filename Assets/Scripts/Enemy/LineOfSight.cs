@@ -3,7 +3,7 @@ using System.Collections;
 
 public class LineOfSight : MonoBehaviour
 {
-
+    public bool booleano;
     public GameObject target;
     public float viewAngle;
     public float viewDistance;
@@ -23,9 +23,9 @@ public class LineOfSight : MonoBehaviour
 
         _dirToTarget = target.transform.position - transform.position;
 
-        _angleToTarget = Vector3.Angle(transform.forward, _dirToTarget); 
+        _angleToTarget = Vector3.Angle(transform.forward, _dirToTarget);
 
-        _distanceToTarget = Vector3.Distance(transform.position, target.transform.position); 
+        _distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
 
         if (_angleToTarget <= viewAngle && _distanceToTarget <= viewDistance)
         {
@@ -50,25 +50,28 @@ public class LineOfSight : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        
-        if (_targetInSight)
-            Gizmos.color = Color.green;
-        else
-            Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, target.transform.position);
+        if (booleano)
+        {
 
-        
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, viewDistance);
+            if (_targetInSight)
+                Gizmos.color = Color.green;
+            else
+                Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, target.transform.position);
 
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawLine(transform.position, transform.position + (transform.forward * viewDistance));
 
-        Vector3 rightLimit = Quaternion.AngleAxis(viewAngle, transform.up) * transform.forward;
-        Gizmos.DrawLine(transform.position, transform.position + (rightLimit * viewDistance));
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, viewDistance);
 
-        Vector3 leftLimit = Quaternion.AngleAxis(-viewAngle, transform.up) * transform.forward;
-        Gizmos.DrawLine(transform.position, transform.position + (leftLimit * viewDistance));
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawLine(transform.position, transform.position + (transform.forward * viewDistance));
+
+            Vector3 rightLimit = Quaternion.AngleAxis(viewAngle, transform.up) * transform.forward;
+            Gizmos.DrawLine(transform.position, transform.position + (rightLimit * viewDistance));
+
+            Vector3 leftLimit = Quaternion.AngleAxis(-viewAngle, transform.up) * transform.forward;
+            Gizmos.DrawLine(transform.position, transform.position + (leftLimit * viewDistance));
+        }
     }
 }
 
