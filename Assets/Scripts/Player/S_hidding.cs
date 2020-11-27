@@ -34,7 +34,7 @@ public class S_hidding : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && (!_hasToMoving && !_hasToRestore))
         {
             if (_isHidding)
             {
@@ -67,6 +67,7 @@ public class S_hidding : MonoBehaviour
 
     void MoveToPosition(Vector3 position, Quaternion rotation)
     {
+
         fpsCamera.transform.position = Vector3.MoveTowards(fpsCamera.transform.position, position, hideSpeed * Time.deltaTime);
         
         Quaternion rot = fpsCamera.transform.rotation;

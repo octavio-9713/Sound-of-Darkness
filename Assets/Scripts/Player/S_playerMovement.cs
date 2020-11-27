@@ -29,6 +29,9 @@ public class S_playerMovement : MonoBehaviour
     public float crouchRingOffset = 2f;
     public float delayCrouchSonarTime = 1f;
 
+    [HideInInspector]
+    public bool isCrouching = false;
+
     private float _gravity = -9.8f;
 
     [Header("Sonar Related")]
@@ -46,7 +49,7 @@ public class S_playerMovement : MonoBehaviour
     Vector3 _velocity;
     Vector3 _moveDir;
 
-    bool _moving = false;
+    public bool _moving = false;
 
     public void Start()
     {
@@ -97,6 +100,7 @@ public class S_playerMovement : MonoBehaviour
         _sonarImpulse = crouchingRingSize;
         _ringOffset = crouchRingOffset;
         _delayTimer = delayCrouchSonarTime;
+        isCrouching = true;
     }
 
     void changeToWalking()
@@ -105,6 +109,7 @@ public class S_playerMovement : MonoBehaviour
         _sonarImpulse = walkingRingsize;
         _ringOffset = walkingRingOffset;
         _delayTimer = delayWalkingSonarTime;
+        isCrouching = false;
     }
 
     void MoveCharacter()
@@ -145,13 +150,13 @@ public class S_playerMovement : MonoBehaviour
         _movementDisable = true;
         _moving = false;
         _sonarImpulse = crouchingRingSize;
-        this.enabled = false;
+        //this.enabled = false;
     }
 
     public void EnableMovement()
     {
         _movementDisable = false;
-        this.enabled = true;
+        //this.enabled = true;
     }
     public List<Renderer> searchObjects()
     {
@@ -163,20 +168,18 @@ public class S_playerMovement : MonoBehaviour
         for (int i = 0; i < near.Length; i++)
         {
             //print(near[i].name + "antes del getcomponent");
-            if (near[i].GetComponent<SimpleSonarShader_Object>() == null)
+            if (near[i].GetComponent<SimpleSonarShader_Object>() == null || near[i].GetComponent<Renderer>() == null)
             {
                 continue;
             }
             //print(near[i].name + "despues del getcomponent pero antes del linecast");
             if (Physics.Linecast(near[i].transform.position, bottomEmitter.position, out hit))
-            { 
-                if (hit.transform == transform)
+            {
+                //print(near[i].name + "despues del line cast pero antes del hit" + hit.transform.name);
+                if (hit.transform.tag == "Player")
                 {
-                    Renderer hitRenderer;
-                    if (item.gameObject.TryGetComponent<Renderer>(out hitRenderer))
-                    {
-                        neighbours.Add(hitRenderer);
-                    }
+                    print(near[i].name + "despues de todo");
+                    neighbours.Add(near[i].GetComponent<Renderer>());
                 }
             }
         }

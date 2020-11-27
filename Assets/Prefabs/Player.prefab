@@ -47,7 +47,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.6
+  m_Height: 2.7
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
@@ -72,12 +72,14 @@ MonoBehaviour:
   walkingRingOffset: 1.5
   delayWalkingSonarTime: 0.75
   crouchSpeed: 0.5
-  crouchMultiplier: 0.3
+  crouchMultiplier: 0.25
   crouchingRingSize: 5
   crouchRingOffset: 0.75
   delayCrouchSonarTime: 2
   sonar: {fileID: 6366773573556196794}
   bottomEmitter: {fileID: 6366773573664699071}
+  neighbours: []
+  _moving: 0
 --- !u!114 &6366773573556196794
 MonoBehaviour:
   m_ObjectHideFlags: 0
