@@ -45,7 +45,7 @@ public class S_playerMovement : MonoBehaviour
     Vector3 _velocity;
     Vector3 _moveDir;
 
-    bool moving = false;
+    bool _moving = false;
 
     public void Start()
     {
@@ -73,13 +73,15 @@ public class S_playerMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftControl))
         {
-            changeToCrouching(newHeight);
+            newHeight = newHeight * crouchMultiplier;
+            changeToCrouching();
         }
 
         // TODO: uncomment if after tweaking the player, to avoid asigning the speed everytime  
         else //if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            changeToWalking(newHeight);
+            newHeight = _initialHeight;
+            changeToWalking();
         }
 
         float lastHeight = controller.height;
@@ -88,18 +90,16 @@ public class S_playerMovement : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y * (controller.height - lastHeight) * 0.5f, transform.position.z);
     }
 
-    void changeToCrouching(float newHeight)
+    void changeToCrouching()
     {
-        newHeight = newHeight * crouchMultiplier;
         _speed = crouchSpeed;
         _sonarImpulse = crouchingRingSize;
         _ringOffset = crouchRingOffset;
         _delayTimer = delayCrouchSonarTime;
     }
 
-    void changeToWalking(float newHeight)
+    void changeToWalking()
     {
-        newHeight = _initialHeight;
         _speed = walkingSpeed;
         _sonarImpulse = walkingRingsize;
         _ringOffset = walkingRingOffset;
@@ -112,10 +112,10 @@ public class S_playerMovement : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         if (x != 0 || z != 0)
-            moving = true;
+            _moving = true;
 
         else
-            moving = false;
+            _moving = false;
 
         _moveDir = transform.right * x + transform.forward * z;
 
@@ -131,7 +131,7 @@ public class S_playerMovement : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(_delayTimer);
-            if (moving)
+            if (_moving)
             {
                 Vector3 diference = _moveDir * _ringOffset;
                 sonar.StartSonarRing(bottomEmitter.position + diference, _sonarImpulse / 10.0f);
@@ -142,11 +142,14 @@ public class S_playerMovement : MonoBehaviour
     public void DisableMovement()
     {
         _movementDisable = true;
+        _moving = false;
         _sonarImpulse = crouchingRingSize;
+        this.enabled = false;
     }
 
     public void EnableMovement()
     {
         _movementDisable = false;
+        this.enabled = true;
     }
 }
