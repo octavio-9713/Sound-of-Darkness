@@ -134,7 +134,7 @@ public class S_playerMovement : MonoBehaviour
             if (_moving)
             {
                 Vector3 diference = _moveDir * _ringOffset;
-                sonar.StartSonarRing(bottomEmitter.position + diference, _sonarImpulse / 10.0f,searchObjects());
+                sonar.StartSonarRing(bottomEmitter.position + diference, _sonarImpulse / 10.0f);
             }
         }
     }
@@ -163,14 +163,16 @@ public class S_playerMovement : MonoBehaviour
         {
             if (Physics.Raycast(transform.position, item.transform.position, out hit))
             {
-                print(hit.transform.name);
-                if (hit.transform == item.transform)
+                if (hit.transform == transform)
                 {
-                    neighbours.Add(item.gameObject.GetComponent<Renderer>());
+                    Renderer hitRenderer;
+                    if (item.gameObject.TryGetComponent<Renderer>(out hitRenderer))
+                    {
+                        neighbours.Add(hitRenderer);
+                    }
                 }
             }
-            return neighbours;
         }
-        return null;
+        return neighbours;
     }
 }

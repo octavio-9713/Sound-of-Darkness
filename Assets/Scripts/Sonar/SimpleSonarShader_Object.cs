@@ -8,7 +8,7 @@ public class SimpleSonarShader_Object : MonoBehaviour
 {
 
     // All the renderers that will have the sonar data sent to their shaders.
-    private Renderer[] ObjectRenderers;
+    private List<Renderer> ObjectRenderers = new List<Renderer>();
 
     // Throwaway values to set position to at the start.
     private static readonly Vector4 GarbagePosition = new Vector4(-5000, -5000, -5000, -5000);
@@ -36,9 +36,9 @@ public class SimpleSonarShader_Object : MonoBehaviour
     private void Start()
     {
         // Get renderers that will have effect applied to them
-       // ObjectRenderers = GetComponentsInChildren<Renderer>();
+        ObjectRenderers = new List<Renderer>(GetComponentsInChildren<Renderer>());
 
-        if(NeedToInitQueues)
+        if (NeedToInitQueues)
         {
             NeedToInitQueues = false;
             // Fill queues with starting values that are garbage values
@@ -56,7 +56,7 @@ public class SimpleSonarShader_Object : MonoBehaviour
     /// <summary>
     /// Starts a sonar ring from this position with the given intensity.
     /// </summary>
-    public void StartSonarRing(Vector4 position, float intensity, List<Renderer> listOfRenderer)
+    public void StartSonarRing(Vector4 position, float intensity, List<Renderer> listOfRenderer = default)
     {
         // Put values into the queue
         position.w = Time.timeSinceLevelLoad;
@@ -66,7 +66,7 @@ public class SimpleSonarShader_Object : MonoBehaviour
         intensityQueue.Dequeue();
         intensityQueue.Enqueue(intensity);
 
-        RingDelegate(listOfRenderer);
+        RingDelegate(listOfRenderer == default ? ObjectRenderers : listOfRenderer);
     }
 
     /// <summary>
