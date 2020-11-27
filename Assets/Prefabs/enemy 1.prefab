@@ -100,9 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b006aa3b5e5e8143b3cdf05d79886a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0
+  radius: 5
   neighbours: []
   cosoParaTirarRaycast: {fileID: 8265994233564080609}
+  stop: 0
   _delayTimer: 1
   _impulseStrength: 13.5
 --- !u!114 &7613419567430655994
@@ -192,9 +193,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8265994233564080609}
-  m_Layer: 0
+  - component: {fileID: 1029684524318349869}
+  m_Layer: 9
   m_Name: Raycast pivot
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -207,12 +209,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2877125228090780697}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.2, y: 28.6, z: 0}
+  m_LocalPosition: {x: -3.2, y: 28.6, z: 40}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7708492855289580003}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1029684524318349869
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2877125228090780697}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12.693357, y: 7.733656, z: 14.600378}
+  m_Center: {x: 5.846679, y: 3.3668275, z: 6.8001895}
 --- !u!1 &7613419566399738949
 GameObject:
   m_ObjectHideFlags: 0

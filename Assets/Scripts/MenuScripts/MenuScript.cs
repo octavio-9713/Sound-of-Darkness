@@ -9,6 +9,7 @@ public class MenuScript : MonoBehaviour
     public GameObject StartGame;
     public GameObject Credits;
     public GameObject QuitGame;
+    public GameObject Tuto;
 
     // Start is called before the first frame update
     void Start()
@@ -27,17 +28,29 @@ public class MenuScript : MonoBehaviour
         }
 
 
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Choice = Choice + (1);
+        }
+
+
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             Choice = Choice - (1);
         }
 
-        if (Choice == (0))
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            Choice = (3);
+            Choice = Choice - (1);
         }
 
-        if (Choice == (4))
+
+        if (Choice == (0))
+        {
+            Choice = (4);
+        }
+
+        if (Choice == (5))
         {
             Choice = (1);
         }
@@ -50,17 +63,31 @@ public class MenuScript : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
 
-                SceneManager.LoadScene("");
+                SceneManager.LoadScene("Game Scene");
             }
 
             if (Input.GetKeyDown(KeyCode.KeypadEnter))
             {
 
-                SceneManager.LoadScene("");
+                SceneManager.LoadScene("Game Scene");
             }
         }
 
         if (Choice == (2))
+        {
+            print("Go to the tutorial?");
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneManager.LoadScene("TutoScene");
+            }
+
+            if (Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                SceneManager.LoadScene("TutoScene");
+            }
+        }
+
+        if (Choice == (3))
         {
             print("Go to the credits?");
             if (Input.GetKeyDown(KeyCode.Space))
@@ -75,7 +102,7 @@ public class MenuScript : MonoBehaviour
             }
         }
 
-        if (Choice == (3))
+        if (Choice == (4))
         {
             print("Quit game?");
             if (Input.GetKeyDown(KeyCode.Space))

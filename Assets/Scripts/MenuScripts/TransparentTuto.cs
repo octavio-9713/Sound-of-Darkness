@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TransparentPlayButton : MonoBehaviour
+public class TransparentTuto : MonoBehaviour
 {
     public float Choice = 1;
     SpriteRenderer Opacity;
@@ -25,6 +25,7 @@ public class TransparentPlayButton : MonoBehaviour
             Choice = Choice + (1);
         }
 
+
         if (Input.GetKeyDown(KeyCode.S))
         {
             Choice = Choice + (1);
@@ -34,6 +35,7 @@ public class TransparentPlayButton : MonoBehaviour
         {
             Choice = Choice - (1);
         }
+
 
         if (Input.GetKeyDown(KeyCode.W))
         {
@@ -52,14 +54,20 @@ public class TransparentPlayButton : MonoBehaviour
 
         if (Choice == (1))
         {
-
-            NewColor = new Color(255f, 255f, 255f, NewColor.a = 1f);
+            NewColor = new Color(255f, 255f, 255f, NewColor.a = 0.5f);
             Opacity.color = NewColor;
 
 
         }
 
         if (Choice == (2))
+        {
+            NewColor = new Color(255f, 255f, 255f, NewColor.a = 1f);
+            Opacity.color = NewColor;
+
+        }
+
+        if (Choice == (3))
         {
             NewColor = new Color(255f, 255f, 255f, NewColor.a = 0.5f);
             Opacity.color = NewColor;
@@ -69,15 +77,8 @@ public class TransparentPlayButton : MonoBehaviour
         {
             NewColor = new Color(255f, 255f, 255f, NewColor.a = 0.5f);
             Opacity.color = NewColor;
-
         }
 
-        if (Choice == (4))
-        {
-            NewColor = new Color(255f, 255f, 255f, NewColor.a = 0.5f);
-            Opacity.color = NewColor;
-
-        }
 
     }
 }

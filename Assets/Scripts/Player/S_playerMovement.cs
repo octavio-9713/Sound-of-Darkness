@@ -34,6 +34,7 @@ public class S_playerMovement : MonoBehaviour
     [Header("Sonar Related")]
     public SimpleSonarShader_Object sonar;
     public Transform bottomEmitter;
+    public List<Renderer> neighbours = new List<Renderer>();
     private float _ringOffset;
     private float _sonarImpulse = 0f;
     
@@ -154,15 +155,21 @@ public class S_playerMovement : MonoBehaviour
     }
     public List<Renderer> searchObjects()
     {
-
-        var near = Physics.OverlapSphere(transform.position, 2);
+        neighbours.Clear();
+        var near = Physics.OverlapSphere(transform.position, 5);
 
         RaycastHit hit;
-        List<Renderer> neighbours = new List<Renderer>();
-        foreach (var item in near)
+
+        for (int i = 0; i < near.Length; i++)
         {
-            if (Physics.Raycast(transform.position, item.transform.position, out hit))
+            //print(near[i].name + "antes del getcomponent");
+            if (near[i].GetComponent<SimpleSonarShader_Object>() == null)
             {
+                continue;
+            }
+            //print(near[i].name + "despues del getcomponent pero antes del linecast");
+            if (Physics.Linecast(near[i].transform.position, bottomEmitter.position, out hit))
+            { 
                 if (hit.transform == transform)
                 {
                     Renderer hitRenderer;
