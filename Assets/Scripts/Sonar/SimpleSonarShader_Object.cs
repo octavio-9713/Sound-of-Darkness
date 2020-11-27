@@ -30,13 +30,13 @@ public class SimpleSonarShader_Object : MonoBehaviour
     private static bool NeedToInitQueues = true;
 
     // Will call the SendSonarData for each object.
-    private delegate void Delegate();
+    private delegate void Delegate(List<Renderer> listofRenderer);
     private static Delegate RingDelegate;
 
     private void Start()
     {
         // Get renderers that will have effect applied to them
-        ObjectRenderers = GetComponentsInChildren<Renderer>();
+       // ObjectRenderers = GetComponentsInChildren<Renderer>();
 
         if(NeedToInitQueues)
         {
@@ -56,7 +56,7 @@ public class SimpleSonarShader_Object : MonoBehaviour
     /// <summary>
     /// Starts a sonar ring from this position with the given intensity.
     /// </summary>
-    public void StartSonarRing(Vector4 position, float intensity)
+    public void StartSonarRing(Vector4 position, float intensity, List<Renderer> listOfRenderer)
     {
         // Put values into the queue
         position.w = Time.timeSinceLevelLoad;
@@ -66,16 +66,17 @@ public class SimpleSonarShader_Object : MonoBehaviour
         intensityQueue.Dequeue();
         intensityQueue.Enqueue(intensity);
 
-        RingDelegate();
+        RingDelegate(listOfRenderer);
     }
 
     /// <summary>
     /// Sends the sonar data to the shader.
     /// </summary>
-    private void SendSonarData()
+    private void SendSonarData(List<Renderer> listofRenderer)
     {
         // Send updated queues to the shaders
-        foreach (Renderer r in ObjectRenderers)
+        if (listofRenderer.Count <= 0) return;
+        foreach (Renderer r in listofRenderer)
         {
             r.material.SetVectorArray("_hitPts", positionsQueue.ToArray());
             r.material.SetFloatArray("_Intensity", intensityQueue.ToArray());
