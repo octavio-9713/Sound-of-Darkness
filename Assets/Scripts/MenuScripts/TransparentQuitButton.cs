@@ -26,17 +26,28 @@ public class TransparentQuitButton : MonoBehaviour
         }
 
 
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Choice = Choice + (1);
+        }
+
         if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            Choice = Choice - (1);
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.W))
         {
             Choice = Choice - (1);
         }
 
         if (Choice == (0))
         {
-            Choice = (3);
+            Choice = (4);
         }
 
-        if (Choice == (4))
+        if (Choice == (5))
         {
             Choice = (1);
         }
@@ -57,6 +68,12 @@ public class TransparentQuitButton : MonoBehaviour
         }
 
         if (Choice == (3))
+        {
+            NewColor = new Color(255f, 255f, 255f, NewColor.a = 0.5f);
+            Opacity.color = NewColor;
+        }
+
+        if (Choice == (4))
         {
             NewColor = new Color(255f, 255f, 255f, NewColor.a = 1f);
             Opacity.color = NewColor;

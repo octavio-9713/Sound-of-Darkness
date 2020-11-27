@@ -25,18 +25,27 @@ public class TransparentCreditsButton : MonoBehaviour
             Choice = Choice + (1);
         }
 
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Choice = Choice + (1);
+        }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             Choice = Choice - (1);
         }
 
-        if (Choice == (0))
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            Choice = (3);
+            Choice = Choice - (1);
         }
 
-        if (Choice == (4))
+        if (Choice == (0))
+        {
+            Choice = (4);
+        }
+
+        if (Choice == (5))
         {
             Choice = (1);
         }
@@ -51,18 +60,24 @@ public class TransparentCreditsButton : MonoBehaviour
 
         if (Choice == (2))
         {
-            NewColor = new Color(255f, 255f, 255f, NewColor.a = 1f);
+            NewColor = new Color(255f, 255f, 255f, NewColor.a = 0.5f);
             Opacity.color = NewColor;
 
         }
 
         if (Choice == (3))
         {
-            NewColor = new Color(255f, 255f, 255f, NewColor.a = 0.5f);
+            NewColor = new Color(255f, 255f, 255f, NewColor.a = 1f);
             Opacity.color = NewColor;
 
         }
 
+        if (Choice == (4))
+        {
+            NewColor = new Color(255f, 255f, 255f, NewColor.a = 0.5f);
+            Opacity.color = NewColor;
+
+        }
 
     }
 }
