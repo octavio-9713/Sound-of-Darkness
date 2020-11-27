@@ -9,6 +9,7 @@ public class S_soundEmitter : MonoBehaviour
     public float radius;
     public List<Renderer> neighbours = new List<Renderer>();
     public Transform cosoParaTirarRaycast;
+    public bool stop;
 
     [SerializeField]
     private float _delayTimer = 1f;
@@ -28,11 +29,14 @@ public class S_soundEmitter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _elapseTime += Time.deltaTime;
-        if (_elapseTime >= _delayTimer)
+        if (!stop)
         {
-            _elapseTime = _elapseTime % 1f;
-            this._sonar.StartSonarRing(this.transform.position, _impulseStrength / 10.0f, searchObjects());
+            _elapseTime += Time.deltaTime;
+            if (_elapseTime >= _delayTimer)
+            {
+                _elapseTime = _elapseTime % 1f;
+                this._sonar.StartSonarRing(this.transform.position, _impulseStrength / 10.0f, searchObjects());
+            }
         }
     }
 
@@ -45,14 +49,18 @@ public class S_soundEmitter : MonoBehaviour
 
         for (int i = 0; i < near.Length; i++)
         {
+            //print(near[i].name + "antes del getcomponent");
             if (near[i].GetComponent<SimpleSonarShader_Object>() == null)
             {
                 continue;
             }
+            //print(near[i].name + "despues del getcomponent pero antes del linecast");
             if (Physics.Linecast(near[i].transform.position, cosoParaTirarRaycast.position, out hit))
             {
+                //print(near[i].name + "despues del line cast pero antes del hit" + hit.transform.name);
                 if (hit.transform.tag == "enemy")
                 {
+                    //print(near[i].name + "despues de todo");
                     neighbours.Add(near[i].GetComponent<Renderer>());
                 }
             }
