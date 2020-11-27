@@ -26,13 +26,11 @@ public class Enemy : MonoBehaviour
     {
         if (_ofSight._targetInSight)
         {
-            print("entre al primer if5");
             Chase();
             _agent.speed = chaseSpeed;
         }
         else
         {
-            print("entre al primer if4");
             Waypoint();
             _agent.speed = waypointSpeed;
         }
@@ -40,17 +38,12 @@ public class Enemy : MonoBehaviour
 
     public void Waypoint()
     {
-        //Check if this if is necessary
-
-        print("entre al primer if 6");
         if (_agent.isStopped)
         {
-            print("entre al primer if");
             _agent.isStopped = false;
         }
         if (waypoints.Count <= 0)
         {
-            print("entre al primer if 2");
             for (int i = waypointsGone.Count - 1; i >= 0; i--)
             {
                 waypoints.Add(waypointsGone[i]);
@@ -60,8 +53,6 @@ public class Enemy : MonoBehaviour
         }
         if (Vector3.Distance(transform.position, waypoints[0].position) < waypointDistance)
         {
-
-            print("entre al primer if 3");
             _agent.destination = waypoints[0].position;
             Vector3 dir = waypoints[0].position - transform.position;
             waypointsGone.Add(waypoints[0]);
@@ -74,7 +65,6 @@ public class Enemy : MonoBehaviour
     }
     public void Chase()
     {
-        //TODO Make the chase logic 
         if (Vector3.Distance(transform.position, _ofSight.target.transform.position) < killDistance)
         {
             _agent.isStopped = true;

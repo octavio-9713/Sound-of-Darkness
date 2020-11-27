@@ -117,8 +117,29 @@ public class S_playerMovement : MonoBehaviour
             if (moving)
             {
                 Vector3 diference = _moveDir * _ringOffset;
-                sonar.StartSonarRing(bottomEmitter.position + diference, _sonarImpulse / 10.0f);
+                sonar.StartSonarRing(bottomEmitter.position + diference, _sonarImpulse / 10.0f,searchObjects());
             }
         }
+    }
+    public List<Renderer> searchObjects()
+    {
+
+        var near = Physics.OverlapSphere(transform.position, 2);
+
+        RaycastHit hit;
+        List<Renderer> neighbours = new List<Renderer>();
+        foreach (var item in near)
+        {
+            if (Physics.Raycast(transform.position, item.transform.position, out hit))
+            {
+                print(hit.transform.name);
+                if (hit.transform == item.transform)
+                {
+                    neighbours.Add(item.gameObject.GetComponent<Renderer>());
+                }
+            }
+            return neighbours;
+        }
+        return null;
     }
 }
