@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class S_hidding : MonoBehaviour
 {
+    [Header("Hidding variables")]
     public float hideDistance = 10f;
     public S_hideable hiddingTarget;
+    public float exitOffset = 1.5f;
 
-    public CharacterController controller;
     S_playerMovement movement;
     S_mouseLook look;
-    public Camera fpsCamera;
 
+    public CharacterController controller;
+
+    [Header("Camera Related variables")]
+    public Camera fpsCamera;
+    public Transform cameraPos;
+
+    [Header("Speed Variables")]
     public float hideSpeed = 5f;
     public float hideRotSpeed = 3f;
 
@@ -21,8 +28,6 @@ public class S_hidding : MonoBehaviour
 
     Vector3 _targetPos;
     Quaternion _targetRot;
-    Vector3 _oldpos;
-    Quaternion _oldRot;
 
     private void Start()
     {
@@ -61,18 +66,19 @@ public class S_hidding : MonoBehaviour
         if (_hasToRestore)
         {
             Debug.Log("Has to restore");
-            MoveToPosition(_oldpos, _oldRot);
+            MoveToPosition(cameraPos.position, cameraPos.rotation);
         }
     }
 
     void MoveToPosition(Vector3 position, Quaternion rotation)
     {
-
         fpsCamera.transform.position = Vector3.MoveTowards(fpsCamera.transform.position, position, hideSpeed * Time.deltaTime);
-        
+
         Quaternion rot = fpsCamera.transform.rotation;
         Quaternion nextRotation = Quaternion.Slerp(fpsCamera.transform.rotation, rotation, hideRotSpeed * Time.deltaTime);
         fpsCamera.transform.rotation = nextRotation;
+
+        fpsCamera.transform.position = Vector3.MoveTowards(fpsCamera.transform.position, position, hideSpeed * Time.deltaTime);
          
         if (fpsCamera.transform.position == position)
         {
@@ -85,12 +91,16 @@ public class S_hidding : MonoBehaviour
     {
         movement.DisableMovement();
         look.DisableLook();
-
-        _oldpos = fpsCamera.transform.position;
         
-        _oldRot = fpsCamera.transform.rotation;
         _targetPos = hiddingTarget.hidePosition.position;
         _targetRot = Quaternion.LookRotation(fpsCamera.transform.forward * (hiddingTarget.inverseHidding ? -1 : 1), fpsCamera.transform.up);
+
+        if (hiddingTarget.goThrough)
+        {
+            float dist = Vector3.Distance(controller.transform.position, hiddingTarget.hidePosition.position);
+            controller.gameObject.transform.position = controller.gameObject.transform.position + controller.gameObject.transform.forward * dist * exitOffset;
+        }
+
         _isHidding = true;
         _hasToMoving = true;
     }

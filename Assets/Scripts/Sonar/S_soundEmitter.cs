@@ -39,6 +39,11 @@ public class S_soundEmitter : MonoBehaviour
         }
     }
 
+    public void EmitDoubleRing()
+    {
+        this._sonar.StartSonarRing(this.transform.position, (_impulseStrength * 2) / 10.0f, searchObjects());
+    }
+
     public List<Renderer> searchObjects()
     {
         neighbours.Clear();

@@ -623,6 +623,7 @@ GameObject:
   - component: {fileID: 1506416701203323703}
   - component: {fileID: 1506416701203323702}
   - component: {fileID: 1506416701203323701}
+  - component: {fileID: 919132148478216319}
   m_Layer: 9
   m_Name: enemy
   m_TagString: enemy
@@ -637,7 +638,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1740280425354960165}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 9.437422, y: -1.072, z: 12.82785}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
@@ -699,8 +700,8 @@ MonoBehaviour:
   currentWaypoint: {fileID: 0}
   waypointDistance: 2.5
   killDistance: 2
-  waypointSpeed: 2
-  chaseSpeed: 2
+  waypointSpeed: 1
+  chaseSpeed: 1
 --- !u!114 &1506416701203323702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -746,6 +747,25 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!95 &919132148478216319
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740280425354960165}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8ef56df635085a24bb27469aa2e98230, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1745719661743453753
 GameObject:
   m_ObjectHideFlags: 0

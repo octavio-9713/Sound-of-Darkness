@@ -16,6 +16,9 @@ public class Enemy : MonoBehaviour
     NavMeshAgent _agent;
     LineOfSight _ofSight;
 
+    private bool _dontMove = false;
+    private float _oldSpeed;
+
     private void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -24,15 +27,25 @@ public class Enemy : MonoBehaviour
     }
     void Update()
     {
-        if (_ofSight._targetInSight)
+        if (!_dontMove)
         {
-            Chase();
-            _agent.speed = chaseSpeed;
+            if (_ofSight._targetInSight)
+            {
+                Chase();
+                _agent.speed = chaseSpeed;
+            }
+            else
+            {
+                Waypoint();
+                _agent.speed = waypointSpeed;
+            }
         }
         else
         {
-            Waypoint();
-            _agent.speed = waypointSpeed;
+            Vector3 dir = _ofSight.target.transform.position - transform.position;
+            dir.y = 0;
+            Vector3 newDirection = Vector3.RotateTowards(transform.forward, dir, 3 * Time.deltaTime, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDirection);
         }
     }
 
@@ -72,4 +85,20 @@ public class Enemy : MonoBehaviour
         else _agent.isStopped = false;
         _agent.destination = _ofSight.target.transform.position;
     }
+
+    public void StopMooving()
+    {
+        this._dontMove = true;
+        this._agent.isStopped = true;
+        this._oldSpeed = _agent.angularSpeed;
+        this._agent.speed = 0;
+    }
+
+    public void ResumeMovement()
+    {
+        this._dontMove = false;
+        this._agent.isStopped = false;
+        this._agent.angularSpeed = _oldSpeed;
+    }
+
 }

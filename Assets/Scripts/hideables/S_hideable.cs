@@ -8,18 +8,24 @@ public class S_hideable : MonoBehaviour
     S_hidding hidding;
     float playerHiddingDistance;
 
-    public UnityEvent onPlayerEnterRange = new UnityEvent();
-    public UnityEvent onPlayerExitRange = new UnityEvent();
-
     public Transform hidePosition;
     bool _onSights = false;
 
     public bool inverseHidding = true;
+    public bool goThrough = true;
+
+    public UnityEvent onPlayerEnterRange = new UnityEvent();
+    public UnityEvent onPlayerExitRange = new UnityEvent();
 
     private void Start()
     {
         hidding = player.GetComponent<S_hidding>();
         this.playerHiddingDistance = hidding.hideDistance;
+
+        if (goThrough)
+        {
+            inverseHidding = false;
+        }
     }
 
     private void Update()
