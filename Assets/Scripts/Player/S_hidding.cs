@@ -22,6 +22,8 @@ public class S_hidding : MonoBehaviour
     public float hideSpeed = 5f;
     public float hideRotSpeed = 3f;
 
+    public float dotTreshhold = 80f;
+
     bool _isHidding = false;
     bool _hasToMoving = false;
     bool _hasToRestore = false;
@@ -48,10 +50,18 @@ public class S_hidding : MonoBehaviour
 
             else if (hiddingTarget != null)
             {
-                Vector3 fromPtoH = (hiddingTarget.transform.position - this.transform.position).normalized;
+                Vector3 hidePos = hiddingTarget.transform.position;
+                hidePos.y = 0;
+
+                Vector3 pos = this.transform.position;
+                pos.y = 0;
+                
+                Vector3 fromPtoH = (hidePos - pos).normalized;
+
                 float dotProd = Vector3.Dot(fromPtoH, this.transform.forward);
-                Debug.Log("Dot Product: " + dotProd);
-                if (dotProd > 0.9 && Vector3.Distance(transform.position, hiddingTarget.transform.position) <= hideDistance)
+                float dist = Vector3.Distance(pos, hidePos);
+
+                if (dotProd > dotTreshhold && dist <= hideDistance)
                 {
                     MoveToHide();
                 }

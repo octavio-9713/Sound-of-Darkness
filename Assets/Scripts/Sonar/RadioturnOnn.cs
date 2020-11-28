@@ -9,6 +9,7 @@ public class RadioturnOnn : MonoBehaviour
     public GameObject target;
     public float distance;
     public bool isPlayerNear;
+    public bool hasToPlaySound = true;
 
     private bool _startSound = false;
     void Start()
@@ -23,7 +24,7 @@ public class RadioturnOnn : MonoBehaviour
         if (Vector3.Distance(target.transform.position, transform.position) < distance)
         {
             _se.stop = false;
-            if (!_startSound)
+            if (!_startSound && hasToPlaySound)
             {
                 _startSound = true;
                 _as.Play();
@@ -32,8 +33,12 @@ public class RadioturnOnn : MonoBehaviour
         else
         {
             _se.stop = true;
-            _startSound = false;
-            _as.Stop();
+
+            if (hasToPlaySound)
+            {
+                _startSound = false;
+                _as.Stop();
+            }
         }
     }
 
