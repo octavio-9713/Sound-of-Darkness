@@ -7,7 +7,13 @@ using UnityEngine.SceneManagement;
 public class GameOverlapss : MonoBehaviour
 {
     public Image gameOverImage;
+<<<<<<< Updated upstream
     AudioSource _as;
+=======
+    public Transform cam;
+    public Transform whereTo;
+    public float speed;
+>>>>>>> Stashed changes
     // Start is called before the first frame update
     void Start()
     {
@@ -16,8 +22,13 @@ public class GameOverlapss : MonoBehaviour
         _as = GetComponent<AudioSource>();
         StartCoroutine(GameOver());
     }
+    private void Update()
+    {
 
-   IEnumerator GameOver()
+        cam.transform.position = Vector3.Lerp(cam.transform.position, whereTo.transform.position, speed * Time.deltaTime);
+    }
+
+    IEnumerator GameOver()
     {
         yield return new WaitForSeconds(0.75f);
         _as.Play();
