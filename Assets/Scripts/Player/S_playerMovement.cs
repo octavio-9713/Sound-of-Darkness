@@ -40,7 +40,6 @@ public class S_playerMovement : MonoBehaviour
     public List<Renderer> neighbours = new List<Renderer>();
     private float _ringOffset;
     private float _sonarImpulse = 0f;
-    
     private float _delayTimer = 0.5f;
     private float _elapseTime = 0;
 
@@ -48,7 +47,7 @@ public class S_playerMovement : MonoBehaviour
 
     Vector3 _velocity;
     Vector3 _moveDir;
-
+    bool firstWave;
     public bool _moving = false;
 
     public void Start()
@@ -57,7 +56,6 @@ public class S_playerMovement : MonoBehaviour
         _sonarImpulse = walkingRingsize;
         _ringOffset = walkingRingOffset;
         _speed = walkingSpeed;
-
         StartCoroutine("EmitPulseRutine");
     }
 
@@ -118,10 +116,13 @@ public class S_playerMovement : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         if (x != 0 || z != 0)
+        {
             _moving = true;
-
+        }
         else
+        {
             _moving = false;
+        }
 
         _moveDir = transform.right * x + transform.forward * z;
 
@@ -136,11 +137,13 @@ public class S_playerMovement : MonoBehaviour
     {
         while (true)
         {
+
             yield return new WaitForSeconds(_delayTimer);
             if (_moving)
             {
                 Vector3 diference = _moveDir * _ringOffset;
                 sonar.StartSonarRing(bottomEmitter.position + diference, _sonarImpulse / 10.0f);
+                print(bottomEmitter.position);
             }
         }
     }
@@ -157,32 +160,5 @@ public class S_playerMovement : MonoBehaviour
     {
         _movementDisable = false;
         //this.enabled = true;
-    }
-    public List<Renderer> searchObjects()
-    {
-        neighbours.Clear();
-        var near = Physics.OverlapSphere(transform.position, 5);
-
-        RaycastHit hit;
-
-        for (int i = 0; i < near.Length; i++)
-        {
-            //print(near[i].name + "antes del getcomponent");
-            if (near[i].GetComponent<SimpleSonarShader_Object>() == null || near[i].GetComponent<Renderer>() == null)
-            {
-                continue;
-            }
-            //print(near[i].name + "despues del getcomponent pero antes del linecast");
-            if (Physics.Linecast(near[i].transform.position, bottomEmitter.position, out hit))
-            {
-                //print(near[i].name + "despues del line cast pero antes del hit" + hit.transform.name);
-                if (hit.transform.tag == "Player")
-                {
-                    print(near[i].name + "despues de todo");
-                    neighbours.Add(near[i].GetComponent<Renderer>());
-                }
-            }
-        }
-        return neighbours;
     }
 }
