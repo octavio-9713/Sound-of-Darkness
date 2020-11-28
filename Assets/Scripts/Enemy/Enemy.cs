@@ -79,6 +79,10 @@ public class Enemy : MonoBehaviour
     }
     public void Chase()
     {
+        if(_ofSight.target._isHidding)
+        {
+            return;
+        }
         if (Vector3.Distance(transform.position, _ofSight.target.transform.position) < killDistance)
         {
             vdm.Gameover();

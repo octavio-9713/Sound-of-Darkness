@@ -24,7 +24,7 @@ public class S_hidding : MonoBehaviour
 
     public float dotTreshhold = 80f;
 
-    bool _isHidding = false;
+    public bool _isHidding = false;
     bool _hasToMoving = false;
     bool _hasToRestore = false;
 

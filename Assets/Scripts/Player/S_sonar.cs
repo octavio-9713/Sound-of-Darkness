@@ -14,7 +14,6 @@ public class S_sonar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         _sonar = GetComponent<SimpleSonarShader_Object>();
         _movement = GetComponent<S_playerMovement>();
     }

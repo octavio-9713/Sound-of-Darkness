@@ -4,7 +4,7 @@ using System.Collections;
 public class LineOfSight : MonoBehaviour
 {
     public bool booleano;
-    public GameObject target;
+    public S_hidding target;
     public float viewAngle;
     public float viewDistance;
     public LayerMask wall;
@@ -46,6 +46,10 @@ public class LineOfSight : MonoBehaviour
         }
         else //Si no se cumplieron las condiciones
             _targetInSight = false;
+        if(target._isHidding)
+        {
+            _targetInSight = false;
+        }
     }
 
     void OnDrawGizmos()
