@@ -63,13 +63,13 @@ public class MenuScript : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
 
-                SceneManager.LoadScene("Game Scene");
+                SceneManager.LoadScene("first level");
             }
 
             if (Input.GetKeyDown(KeyCode.KeypadEnter))
             {
 
-                SceneManager.LoadScene("Game Scene");
+                SceneManager.LoadScene("first level");
             }
         }
 
