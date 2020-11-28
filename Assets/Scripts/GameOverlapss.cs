@@ -24,6 +24,8 @@ public class GameOverlapss : MonoBehaviour
         gameOverImage.gameObject.SetActive(false);
         StartCoroutine(GameOver());
         menuSound.PlayOneShot(tensionSound);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
     private void Update()
     {

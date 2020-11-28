@@ -97,9 +97,12 @@ public class Enemy : MonoBehaviour
     public void StopMooving()
     {
         this._dontMove = true;
+        if(_agent !=null)
+        {
         this._agent.isStopped = true;
         this._oldSpeed = _agent.angularSpeed;
         this._agent.speed = 0;
+        }
     }
 
     public void ResumeMovement()
