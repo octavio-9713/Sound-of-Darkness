@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     public float killDistance;
     public float waypointSpeed;
     public float chaseSpeed;
+    public VictoryDefeatManager vdm;
     NavMeshAgent _agent;
     LineOfSight _ofSight;
 
@@ -80,6 +81,7 @@ public class Enemy : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, _ofSight.target.transform.position) < killDistance)
         {
+            vdm.Gameover();
             _agent.isStopped = true;
         }
         else _agent.isStopped = false;
