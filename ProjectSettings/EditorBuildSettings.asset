@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/defeat scene.unity
     guid: a814c00d02d57ff49b637c860835ff93
+  - enabled: 1
+    path: Assets/Scenes/CreditsScene.unity
+    guid: 4b6611092c9b0a8429a92d86fb667fbd
   m_configObjects: {}
