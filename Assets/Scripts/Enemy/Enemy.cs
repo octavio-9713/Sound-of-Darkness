@@ -14,7 +14,9 @@ public class Enemy : MonoBehaviour
     public float waypointSpeed;
     public float chaseSpeed;
     public VictoryDefeatManager vdm;
-    NavMeshAgent _agent;
+
+    [HideInInspector]
+    public NavMeshAgent _agent;
     LineOfSight _ofSight;
 
     private bool _dontMove = false;

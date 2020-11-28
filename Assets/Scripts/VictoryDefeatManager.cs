@@ -13,10 +13,20 @@ public class VictoryDefeatManager : MonoBehaviour
     public float LightAlphaSpeed;
     bool dark;
     bool ligher;
+
+    public AudioSource audio;
+    public AudioClip winAudio;
+    public AudioClip ambientAudio;
+
+    private AudioSource[] allSources;
+
     // Start is called before the first frame update
     void Start()
     {
         BlackScreen.gameObject.SetActive(false);
+        allSources = FindObjectsOfType<AudioSource>();
+        audio.clip = ambientAudio;
+        audio.Play();
     }
 
     // Update is called once per frame
@@ -44,6 +54,13 @@ public class VictoryDefeatManager : MonoBehaviour
 
     public void VictoryGameover()
     {
+        foreach(AudioSource source in allSources)
+        {
+            source.Stop();
+        }
+
+        audio.clip = winAudio;
+        audio.Play();
         BlindingLight.gameObject.SetActive(true);
         blindingScreen.gameObject.SetActive(true);
         StartCoroutine(TimerBeforeLightOut());

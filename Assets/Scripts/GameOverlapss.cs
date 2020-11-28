@@ -6,18 +6,24 @@ using UnityEngine.SceneManagement;
 
 public class GameOverlapss : MonoBehaviour
 {
-    AudioSource _as;
+    public AudioSource scream;
+    public AudioSource steps;
+
     public Image gameOverImage;
     public Transform cam;
     public Transform whereTo;
+    public float waitForScream = 1f;
     public int speed;
+
+    public AudioSource menuSound;
+    public AudioClip tensionSound;
+
     // Start is called before the first frame update
     void Start()
     {
-
-        _as = GetComponent<AudioSource>();
         gameOverImage.gameObject.SetActive(false);
         StartCoroutine(GameOver());
+        menuSound.PlayOneShot(tensionSound);
     }
     private void Update()
     {
@@ -26,7 +32,10 @@ public class GameOverlapss : MonoBehaviour
     }
     IEnumerator GameOver()
     {
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(waitForScream);
+        scream.Play();
+        steps.Stop();
+        yield return new WaitForSeconds(2f);
         gameOverImage.gameObject.SetActive(true);
         Cursor.visible = true;
     }

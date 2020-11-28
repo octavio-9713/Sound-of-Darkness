@@ -1089,7 +1089,7 @@ PrefabInstance:
         type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 209385927}
+      objectReference: {fileID: 0}
     - target: {fileID: 1506416701203323703, guid: dbd87cf44a7314a479e65496fab95e23,
         type: 3}
       propertyPath: waypoints.Array.data[0]
@@ -1456,8 +1456,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d90ed596ae14f4f888f3e20c8bbac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 10
-  isTriggered: 1
+  cooldown: 15
+  isTriggered: 0
 --- !u!82 &1443354293
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2259,6 +2259,11 @@ PrefabInstance:
       propertyPath: cameraPos
       value: 
       objectReference: {fileID: 1696613212}
+    - target: {fileID: 1312798627605851466, guid: eb21933a315ce6146a75cd5e4c388a32,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6366773573556196788, guid: eb21933a315ce6146a75cd5e4c388a32,
         type: 3}
       propertyPath: m_Height
@@ -2282,7 +2287,7 @@ PrefabInstance:
     - target: {fileID: 6366773573556196795, guid: eb21933a315ce6146a75cd5e4c388a32,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 25
+      value: -34.68
       objectReference: {fileID: 0}
     - target: {fileID: 6366773573556196795, guid: eb21933a315ce6146a75cd5e4c388a32,
         type: 3}
