@@ -54,21 +54,17 @@ public class S_soundEmitter : MonoBehaviour
         for (int i = 0; i < near.Length; i++)
         {
             //print(near[i].name + "antes del getcomponent");
-<<<<<<< Updated upstream
             if (near[i].GetComponent<SimpleSonarShader_Object>() == null || near[i].GetComponent<Renderer>() == null)
-=======
-            if (near[i].GetComponent<SimpleSonarShader_Object>() == null)
->>>>>>> Stashed changes
             {
                 continue;
             }
-           //print(near[i].name + "despues del getcomponent pero antes del linecast");
+           print(near[i].name + "despues del getcomponent pero antes del linecast");
             if (Physics.Linecast(near[i].transform.position, cosoParaTirarRaycast.position, out hit))
             {
-                //print(near[i].name + "despues del line cast pero antes del hit " + hit.transform.name);
+                print(near[i].name + "despues del line cast pero antes del hit " + hit.transform.name);
                 if (hit.transform.tag == "enemy")
                 {
-                    //print(near[i].name + "despues de todo");
+                    print(near[i].name + "despues de todo");
                     neighbours.Add(near[i].GetComponent<Renderer>());
                 }
             }
