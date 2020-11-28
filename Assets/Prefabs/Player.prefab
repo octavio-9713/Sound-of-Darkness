@@ -1,5 +1,97 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1631426728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1631426730}
+  - component: {fileID: 1631426729}
+  m_Layer: 0
+  m_Name: Spot Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1631426730
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631426728}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.55}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6366773573909239847}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!108 &1631426729
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631426728}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Intensity: 627.4
+  m_Range: 32.74
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!1 &4892685498007160564
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,6 +137,7 @@ GameObject:
   - component: {fileID: 2024080810}
   - component: {fileID: 2131560468}
   - component: {fileID: 2131560474}
+  - component: {fileID: 1871230136}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -101,19 +194,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 6366773573556196788}
   walkingSpeed: 1.5
-  walkingRingsize: 8
-  walkingRingOffset: 1.5
-  delayWalkingSonarTime: 0.75
+  walkingRingsize: 15
+  walkingRingOffset: 1
+  delayWalkingSonarTime: 1
   crouchSpeed: 0.5
   crouchMultiplier: 0.25
   crouchingRingSize: 5
-  crouchRingOffset: 0.75
+  crouchRingOffset: 1
   delayCrouchSonarTime: 2
   isCrouching: 0
   sonar: {fileID: 6366773573556196794}
   bottomEmitter: {fileID: 6366773573664699071}
   neighbours: []
   _moving: 0
+  disablePulse: 1
 --- !u!114 &6366773573556196794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,6 +240,7 @@ MonoBehaviour:
   cameraPos: {fileID: 1312798627605851466}
   hideSpeed: 5
   hideRotSpeed: 4
+  dotTreshhold: 0.9
 --- !u!82 &2131560468
 AudioSource:
   m_ObjectHideFlags: 0
@@ -262,6 +357,20 @@ MonoBehaviour:
   maxVol: 0.3
   minPitch: 0.5
   maxPitch: 0.6
+--- !u!114 &1871230136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6366773573556196790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37ec9cb307597b64986138275d665e8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 1
+  ringSize: 20
 --- !u!1 &6366773573664699064
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,7 +444,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.94, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1631426730}
   m_Father: {fileID: 6366773573556196795}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

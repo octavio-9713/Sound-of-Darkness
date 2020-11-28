@@ -473,16 +473,16 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 3dd26d21f13ceb04da319e7237c8bb57, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 362.18
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1565,16 +1565,16 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 3dd26d21f13ceb04da319e7237c8bb57, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 362.18
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -3712,16 +3712,16 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 3dd26d21f13ceb04da319e7237c8bb57, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 362.18
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -18123,6 +18123,30 @@ PrefabInstance:
       propertyPath: dotTreshhold
       value: 0.9
       objectReference: {fileID: 0}
+    - target: {fileID: 2131560468, guid: eb21933a315ce6146a75cd5e4c388a32, type: 3}
+      propertyPath: Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366773573556196789, guid: eb21933a315ce6146a75cd5e4c388a32,
+        type: 3}
+      propertyPath: walkingRingsize
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366773573556196789, guid: eb21933a315ce6146a75cd5e4c388a32,
+        type: 3}
+      propertyPath: walkingRingOffset
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366773573556196789, guid: eb21933a315ce6146a75cd5e4c388a32,
+        type: 3}
+      propertyPath: crouchRingOffset
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366773573556196789, guid: eb21933a315ce6146a75cd5e4c388a32,
+        type: 3}
+      propertyPath: delayWalkingSonarTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6366773573556196790, guid: eb21933a315ce6146a75cd5e4c388a32,
         type: 3}
       propertyPath: m_Name
@@ -18191,6 +18215,20 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1871230127}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1871230136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871230128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37ec9cb307597b64986138275d665e8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 1
+  ringSize: 20
 --- !u!1 &1876282756 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c150a6aac866e0c4ab6c25b7a4d3e430,

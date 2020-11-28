@@ -50,13 +50,17 @@ public class S_playerMovement : MonoBehaviour
     bool firstWave;
     public bool _moving = false;
 
+    public bool disablePulse = true;
+
     public void Start()
     {
         _initialHeight = controller.height;
         _sonarImpulse = walkingRingsize;
         _ringOffset = walkingRingOffset;
         _speed = walkingSpeed;
-        StartCoroutine("EmitPulseRutine");
+
+        if (!disablePulse)
+            StartCoroutine("EmitPulseRutine");
     }
 
     // Update is called once per frame
@@ -64,6 +68,7 @@ public class S_playerMovement : MonoBehaviour
     {
         if (!_movementDisable)
         {
+            changeToWalking();
             CheckForCrouch();
             MoveCharacter();
         }
@@ -80,10 +85,9 @@ public class S_playerMovement : MonoBehaviour
         }
 
         // TODO: uncomment if after tweaking the player, to avoid asigning the speed everytime  
-        else //if (Input.GetKeyUp(KeyCode.LeftControl))
+        else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             newHeight = _initialHeight;
-            changeToWalking();
         }
 
         float lastHeight = controller.height;
@@ -135,15 +139,22 @@ public class S_playerMovement : MonoBehaviour
 
     IEnumerator EmitPulseRutine()
     {
-        while (true)
+        bool pulsating = true;
+        while (pulsating)
         {
 
             yield return new WaitForSeconds(_delayTimer);
-            if (_moving)
+            if (_moving && !disablePulse)
             {
-                Vector3 diference = _moveDir * _ringOffset;
+                Vector3 diference = transform.forward * _ringOffset;
                 sonar.StartSonarRing(bottomEmitter.position + diference, _sonarImpulse / 10.0f);
                 print(bottomEmitter.position);
+            }
+
+            if (disablePulse)
+            {
+                StopAllCoroutines();
+                pulsating = false;
             }
         }
     }
